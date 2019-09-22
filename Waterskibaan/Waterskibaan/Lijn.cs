@@ -8,5 +8,6 @@ namespace Waterskibaan
 {
     class Lijn
     {
+        public string PositieOpDeKabel;
     }
 }

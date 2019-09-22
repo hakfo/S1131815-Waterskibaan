@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class Kabel
+    class Kabel : Lijn
     {
-        private LinkedList<Lijn> _lijnen;
+        private static LinkedList<Lijn> _lijnen;
 
         // Bepaal of een lijn aangekoppeld kan worden
         public bool IsStartPositieLeeg()
@@ -33,11 +33,14 @@ namespace Waterskibaan
         // Verhoog de positie van alle lijnen met 1
         public void VerschuifLijnen()
         {
-            foreach(Lijn lijn in _lijnen)
-            {
-                // verhoog de positie van alle lijnen in _lijnen met 1 t/m 9. 9 moet terugcirkelen naar 0.
-            }
+            // Zou een nullwaarde aan de voorkant van de list moeten toevoegen om zo alles 1 plek naar voren te schuiven
+            _lijnen.AddFirst(value:null);
 
+            // Controleer of de laatste node de 9e positie gepasseerd is en verplaats deze naar positie 0
+            if(_lijnen.)
+            {
+                // ???
+            }
         }
 
         // 'Verwijder' de laatste lijn van de kabel.
@@ -53,15 +56,16 @@ namespace Waterskibaan
         }
 
         // ToString om de positie van de lijnen op de kabel te zien
-        public string overload ToString()
+        public override string ToString()
         {
-            foreach(Lijn lijn in _lijnen)
-            {
-                // Kan geen lijn.Value gebruiken?
-            }
+            // ???
         }
 
-
+        // Test?
+        private static void TestOpdracht2()
+        {
+            _lijnen.ToString();
+        }
     }
 
 }
