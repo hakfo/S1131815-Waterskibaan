@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class Kabel : Lijn
+    class Kabel
     {
-        private static LinkedList<Lijn> _lijnen;
+        private LinkedList<Lijn> _lijnen = new LinkedList<Lijn>();
 
         // Bepaal of een lijn aangekoppeld kan worden
         public bool IsStartPositieLeeg()
         {
-            if (_lijnen.First == null || _lijnen.Count == 0)
+            Console.WriteLine("IsStartPositieLeeg");
+            if (_lijnen.First == null || _lijnen.First.Value.PositieOpDeKabel != 0)
             {
                 return true;
             }
@@ -26,6 +27,8 @@ namespace Waterskibaan
         // Voeg een lijn toe op positie 0
         public void NeemLijnInGebruik(Lijn lijn)
         {
+            Console.WriteLine("NeemLijnInGebruik");
+
             if (IsStartPositieLeeg() == true)
             {
                 _lijnen.AddFirst(lijn);
@@ -35,16 +38,23 @@ namespace Waterskibaan
         // Verhoog de positie van alle lijnen met 1
         public void VerschuifLijnen()
         {
-            // Zou een nullwaarde aan de voorkant van de list moeten toevoegen om zo alles 1 plek naar voren te schuiven
-            _lijnen.AddFirst(value: null);
+            Console.WriteLine("VerschuifLijnen");
 
-            // Controleer of de laatste node de 9e positie gepasseerd is en verplaats deze naar positie 0
+            LinkedListNode<Lijn> huidigeNode = _lijnen.First;
+
+            for(int i = _lijnen.Count; i > 0; i--)
+            {
+                huidigeNode.Value.PositieOpDeKabel++;
+                huidigeNode = huidigeNode.Next;
+            }
         }
 
         // 'Verwijder' de laatste lijn van de kabel.
         public Lijn VerwijderLijnVanKabel()
         {
-            if (_lijnen.Last != null)
+            Console.WriteLine("VerwijderLijnVanKabel");
+
+            if (_lijnen.Last.Value.PositieOpDeKabel == 9)
             {
                 return _lijnen.Last.Value;
             }
@@ -58,7 +68,21 @@ namespace Waterskibaan
 
         public override string ToString()
         {
-            return null;
+            Console.WriteLine("ToString");
+
+            LinkedListNode<Lijn> huidigeNode = _lijnen.First;
+            string printLijst = "";
+
+            for(int i = _lijnen.Count; i > 0; i--)
+            {
+                printLijst += huidigeNode.Value.PositieOpDeKabel;
+                if(huidigeNode.Next != null)
+                {
+                    printLijst += " | ";
+                }
+                huidigeNode = huidigeNode.Next;
+            }
+            return printLijst;
         }
 
 

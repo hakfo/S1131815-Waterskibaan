@@ -6,8 +6,28 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
+
     class Lijn
     {
-        public string PositieOpDeKabel;
+
+        public int plek;
+
+        public int PositieOpDeKabel
+        {
+            set
+            {
+                plek = value;
+            }
+            get
+            {
+                return plek;
+            }
+        }
+
+        public Lijn(int positie)
+        {
+            PositieOpDeKabel = positie;
+        }
     }
+
 }
