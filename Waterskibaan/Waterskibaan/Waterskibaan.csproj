@@ -58,6 +58,7 @@
     <Compile Include="Sporter.cs" />
     <Compile Include="WachtrijInstructie.cs" />
     <Compile Include="WachtrijStarten.cs" />
+    <Compile Include="Waterskibaan.cs" />
     <Compile Include="Zwemvest.cs" />
   </ItemGroup>
   <ItemGroup>

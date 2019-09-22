@@ -16,7 +16,9 @@ namespace Waterskibaan
             if (_lijnen.First == null || _lijnen.Count == 0)
             {
                 return true;
-            } else {
+            }
+            else
+            {
                 return false;
             }
         }
@@ -24,7 +26,7 @@ namespace Waterskibaan
         // Voeg een lijn toe op positie 0
         public void NeemLijnInGebruik(Lijn lijn)
         {
-             if(IsStartPositieLeeg() == true)
+            if (IsStartPositieLeeg() == true)
             {
                 _lijnen.AddFirst(lijn);
             }
@@ -34,13 +36,9 @@ namespace Waterskibaan
         public void VerschuifLijnen()
         {
             // Zou een nullwaarde aan de voorkant van de list moeten toevoegen om zo alles 1 plek naar voren te schuiven
-            _lijnen.AddFirst(value:null);
+            _lijnen.AddFirst(value: null);
 
             // Controleer of de laatste node de 9e positie gepasseerd is en verplaats deze naar positie 0
-            if(_lijnen.)
-            {
-                // ???
-            }
         }
 
         // 'Verwijder' de laatste lijn van de kabel.
@@ -49,23 +47,21 @@ namespace Waterskibaan
             if (_lijnen.Last != null)
             {
                 return _lijnen.Last.Value;
-            } else
+            }
+            else
             {
                 return null;
             }
         }
 
         // ToString om de positie van de lijnen op de kabel te zien
+
         public override string ToString()
         {
-            // ???
+            return null;
         }
 
-        // Test?
-        private static void TestOpdracht2()
-        {
-            _lijnen.ToString();
-        }
+
     }
 
 }
