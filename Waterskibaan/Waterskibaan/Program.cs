@@ -22,8 +22,11 @@ namespace Waterskibaan
             Lijn lijn2 = new Lijn(0);
             Lijn lijn3 = new Lijn(0);
             Lijn lijn4 = new Lijn(0);
+            Lijn lijn5 = new Lijn(0);
+            Lijn lijn6 = new Lijn(0);
 
             kabel.NeemLijnInGebruik(lijn);
+            kabel.VerschuifLijnen();
             kabel.NeemLijnInGebruik(lijn2);
             kabel.VerschuifLijnen();
             kabel.VerschuifLijnen();
@@ -31,7 +34,15 @@ namespace Waterskibaan
             kabel.NeemLijnInGebruik(lijn3);
             kabel.VerschuifLijnen();
             kabel.VerschuifLijnen();
+            kabel.VerschuifLijnen();
             kabel.NeemLijnInGebruik(lijn4);
+            kabel.VerschuifLijnen();
+            kabel.VerschuifLijnen();
+            kabel.NeemLijnInGebruik(lijn5);
+            kabel.VerschuifLijnen();
+            kabel.VerschuifLijnen();
+            kabel.NeemLijnInGebruik(lijn6);
+            kabel.VerschuifLijnen();
 
             Console.WriteLine(kabel.ToString());
         }

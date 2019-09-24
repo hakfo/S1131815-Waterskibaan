@@ -33,19 +33,46 @@ namespace Waterskibaan
             {
                 _lijnen.AddFirst(lijn);
             }
+            else
+            {
+                Console.WriteLine("Lijn is niet leeg");
+            }
         }
 
         // Verhoog de positie van alle lijnen met 1
         public void VerschuifLijnen()
         {
+
+            // Eerste poging gebruik gemaakt van nodes, niet nodig. Bewaren als voorbeeld.
+
+/*            Console.WriteLine("VerschuifLijnen");
+
+              LinkedListNode<Lijn> huidigeNode = _lijnen.First;
+
+              for(int i = _lijnen.Count; i > 0; i--)
+              {
+              huidigeNode.Value.PositieOpDeKabel++;
+              huidigeNode = huidigeNode.Next;
+              }
+*/
+
+
             Console.WriteLine("VerschuifLijnen");
 
-            LinkedListNode<Lijn> huidigeNode = _lijnen.First;
-
-            for(int i = _lijnen.Count; i > 0; i--)
+            for (int i = 0; i < _lijnen.Count; i++)
             {
-                huidigeNode.Value.PositieOpDeKabel++;
-                huidigeNode = huidigeNode.Next;
+                Lijn last = _lijnen.Last.Value;
+
+                if(last.PositieOpDeKabel == 9)
+                {
+                    last.PositieOpDeKabel = 0;
+                    _lijnen.RemoveLast();
+                    _lijnen.AddFirst(last);
+                }
+                else
+                {
+                    _lijnen.ElementAt(i).PositieOpDeKabel++;
+                }
             }
         }
 
@@ -56,12 +83,15 @@ namespace Waterskibaan
 
             if (_lijnen.Last.Value.PositieOpDeKabel == 9)
             {
-                return _lijnen.Last.Value;
+                Lijn lijn = _lijnen.Last.Value;
+                _lijnen.RemoveLast();
+                return lijn;
             }
             else
             {
                 return null;
             }
+
         }
 
         // ToString om de positie van de lijnen op de kabel te zien

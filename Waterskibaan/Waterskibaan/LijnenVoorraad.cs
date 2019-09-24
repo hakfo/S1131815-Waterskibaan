@@ -16,10 +16,10 @@ namespace Waterskibaan
             // TODO
         }
 
+        // Wat moet dit doen?
         public Lijn VerwijderEersteLijn()
         {
             return null;
-            // TODO
         }
 
         public int GetAantalLijnen()

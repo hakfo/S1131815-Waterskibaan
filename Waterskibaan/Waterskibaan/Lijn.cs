@@ -10,17 +10,17 @@ namespace Waterskibaan
     class Lijn
     {
 
-        public int plek;
+        private int plek;
 
         public int PositieOpDeKabel
         {
-            set
-            {
-                plek = value;
-            }
             get
             {
                 return plek;
+            }
+            set
+            {
+                plek = value;
             }
         }
 
