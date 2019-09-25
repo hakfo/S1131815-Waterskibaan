@@ -9,29 +9,42 @@ namespace Waterskibaan
     class LijnenVoorraad
     {
 
-        private static Queue<Lijn> _lijnen;
+        private Queue<Lijn> _lijnen = new Queue<Lijn>();
 
+        // Voeg een gegeven lijn toe aan de rij
         public void LijnToevoegenAanRij(Lijn lijn)
         {
-            // TODO
+            _lijnen.Enqueue(lijn);
         }
 
-        // Wat moet dit doen?
+        // 'Verwijder' eerste lijn
         public Lijn VerwijderEersteLijn()
         {
-            return null;
+            if(_lijnen.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                Lijn lijn = _lijnen.Peek();
+                _lijnen.Dequeue();
+                return lijn;
+            }
         }
 
+        // Haalt hoeveelheid lijnen op
         public int GetAantalLijnen()
         {
-            return 0;
-            // TODO
+            return _lijnen.Count();
         }
 
-        public string ToString()
+        // ToString om de hoeveelheid lijnen in voorraad te printen
+        public override string ToString()
         {
-            return null;
-            // TODO
+            string printLijst = "";
+            printLijst += GetAantalLijnen();
+            printLijst += " lijnen op voorraad";
+            return printLijst;
         }
     }
 }
