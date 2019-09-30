@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    interface IMoves
+    interface IMove
     {
+        int MoeilijkheidsGraad { get; }
+        int Score { get; }
         int Move();
     }
 }

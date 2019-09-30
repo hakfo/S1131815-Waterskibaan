@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    abstract class Sporter
+    class Sporter
     {
 
         public int AantalRondenNogTeGaan = 0;
@@ -15,13 +15,24 @@ namespace Waterskibaan
         public Skies Skies;
         public Color KledingKleur;
         public int BehaaldePunten;
-        public List<IMoves> Moves;
+        public List<IMove> Moves;
 
-        public Sporter(List<IMoves> moves)
+        public Sporter(List<IMove> moves)
         {
-
+            this.Moves = moves;
         }
 
-
+        public override string ToString()
+        {
+            string tekst = "";
+            foreach(IMove move in Moves)
+            {
+                tekst += move;
+                tekst += $"\tScore is {move.Score}";
+                tekst += $"\tMoeilijkheidsgraad van deze move is {move.MoeilijkheidsGraad}";
+                tekst += "\n";
+            }
+            return tekst;
+        }
     }
 }

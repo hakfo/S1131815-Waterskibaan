@@ -14,6 +14,8 @@ namespace Waterskibaan
             Console.ReadLine();
             TestOpdracht3();
             Console.ReadLine();
+            TestOpdracht5();
+            Console.ReadLine();
         }
 
         static void TestOpdracht2()
@@ -66,6 +68,12 @@ namespace Waterskibaan
             lijnenvoorraad.VerwijderEersteLijn();
 
             Console.WriteLine(lijnenvoorraad.ToString());
+        }
+
+        static void TestOpdracht5()
+        {
+            Sporter sporter = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+            Console.WriteLine(sporter.ToString());
         }
     }
 }
