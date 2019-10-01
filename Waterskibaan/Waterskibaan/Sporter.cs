@@ -16,6 +16,7 @@ namespace Waterskibaan
         public Color KledingKleur;
         public int BehaaldePunten;
         public List<IMove> Moves;
+        public Lijn lijn;
 
         public Sporter(List<IMove> moves)
         {

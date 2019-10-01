@@ -22,9 +22,17 @@ namespace Waterskibaan
 
         }
 
+        public void SporterStart(Sporter sp)
+        {
+            kabel.NeemLijnInGebruik(sp.lijn);
+            Random rand = new Random();
+            int randomRondjes = rand.Next(1, 2);
+            sp.AantalRondenNogTeGaan = randomRondjes;
+            sp.KledingKleur = (System.Drawing.Color.Blue);
+        }
+
         public void VerplaatsKabel()
         {
-            kabel.VerschuifLijnen();
             lijnenVoorraad.LijnToevoegenAanRij(kabel.VerwijderLijnVanKabel());
         }
 
