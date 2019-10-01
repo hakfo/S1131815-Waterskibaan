@@ -68,6 +68,7 @@ namespace Waterskibaan
                     last.PositieOpDeKabel = 0;
                     _lijnen.RemoveLast();
                     _lijnen.AddFirst(last);
+                    _lijnen.Last.Value.sp.AantalRondenNogTeGaan--;
                 }
                 else
                 {
@@ -81,7 +82,7 @@ namespace Waterskibaan
         {
             Console.WriteLine("VerwijderLijnVanKabel");
 
-            if (_lijnen.Last.Value.PositieOpDeKabel == 9)
+            if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sp.AantalRondenNogTeGaan == 1)
             {
                 Lijn lijn = _lijnen.Last.Value;
                 _lijnen.RemoveLast();
