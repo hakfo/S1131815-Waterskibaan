@@ -10,18 +10,19 @@ namespace Waterskibaan
     {
         static void Main(string[] args)
         {
-/*            TestOpdracht2();
-            Console.ReadLine();
-            TestOpdracht3();
-            Console.ReadLine();
-            TestOpdracht5();
-            Console.ReadLine();
-            TestOpdracht8();
-            Console.ReadLine();*/
+            // TestOpdracht2();
+            // Console.ReadLine();
+            // TestOpdracht3();
+            // Console.ReadLine();
+            // TestOpdracht5();
+            // Console.ReadLine();
+            // TestOpdracht8();
+            // Console.ReadLine();
             TestOpdracht10();
             Console.ReadLine();
         }
 
+        // Test de kabel door er lijnen aan te hangen en deze rond te schuifen
         static void TestOpdracht2()
         {
             Kabel kabel = new Kabel();
@@ -55,6 +56,7 @@ namespace Waterskibaan
             Console.WriteLine(kabel.ToString());
         }
 
+        // Test de lijnenvoorraad door er lijnen aan toe te voegen en af te halen
         static void TestOpdracht3()
         {
             Lijn lijn7 = new Lijn(0);
@@ -74,19 +76,28 @@ namespace Waterskibaan
             Console.WriteLine(lijnenvoorraad.ToString());
         }
 
+        // Test de sporter z'n moves
         static void TestOpdracht5()
         {
             Sporter sporter = new Sporter(MoveCollection.GetWilleKeurigeMoves());
             Console.WriteLine(sporter.ToString());
         }
 
+        // Test of de sporter z'n zwemvest en skies heeft
         static void TestOpdracht8()
         {
-            Sporter sporter = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+            Sporter sporter1 = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+            Sporter sporter2 = new Sporter(MoveCollection.GetWilleKeurigeMoves());
             Waterskibaan waterskibaan = new Waterskibaan(new LijnenVoorraad());
-            waterskibaan.SporterStart(sporter);
+
+            sporter2.Zwemvest = new Zwemvest();
+            sporter2.Skies = new Skies();
+
+            waterskibaan.SporterStart(sporter1);
         }
 
+        // Test de wachtrijen 
+        // NOOT: Alle sporters die niet toegevoegd worden verdwijnen op het moment in het niks. Uitgaan van correcte invoer?
         static void TestOpdracht10()
         {
             WachtrijInstructie wachtrijInstructie = new WachtrijInstructie();

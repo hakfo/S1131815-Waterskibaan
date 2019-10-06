@@ -22,11 +22,12 @@ namespace Waterskibaan
 
         }
 
+        // Initialiseert de sporter en laat hem een paar rondjes gaan
         public void SporterStart(Sporter sp)
         {
             kabel.NeemLijnInGebruik(sp.lijn);
             Random rand = new Random();
-            int randomRondjes = rand.Next(1, 2);
+            int randomRondjes = rand.Next(0, 2);
             sp.AantalRondenNogTeGaan = randomRondjes;
             sp.KledingKleur = (System.Drawing.Color.Blue);
 
@@ -45,6 +46,7 @@ namespace Waterskibaan
 
         }
 
+        // Haalt de lijn van de kabel en voegt hem toe aan de lijnenvoorraad
         public void VerplaatsKabel()
         {
             lijnenVoorraad.LijnToevoegenAanRij(kabel.VerwijderLijnVanKabel());

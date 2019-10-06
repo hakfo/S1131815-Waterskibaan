@@ -10,6 +10,7 @@ namespace Waterskibaan
     {
         static List<IMove> moves = new List<IMove>();
 
+        // Voegt willekeurige moves toe aan een lijst die meegegeven wordt aan een sporter
         public static List<IMove> GetWilleKeurigeMoves()
         {
             Random rand1 = new Random();
@@ -39,6 +40,7 @@ namespace Waterskibaan
         }
     }
 
+    // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class Jump : IMove
     {
         public int MoeilijkheidsGraad { get { return 50; } }
@@ -55,6 +57,7 @@ namespace Waterskibaan
         }
     }
 
+    // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class Omdraaien : IMove
     {
         public int MoeilijkheidsGraad { get { return 80; } }
@@ -71,6 +74,7 @@ namespace Waterskibaan
         }
     }
 
+    // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class EenBeen : IMove
     {
         public int MoeilijkheidsGraad { get { return 30; } }
@@ -87,6 +91,7 @@ namespace Waterskibaan
         }
     }
 
+    // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class EenArm : IMove
     {
         public int MoeilijkheidsGraad { get { return 20; } }
