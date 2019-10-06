@@ -29,6 +29,20 @@ namespace Waterskibaan
             int randomRondjes = rand.Next(1, 2);
             sp.AantalRondenNogTeGaan = randomRondjes;
             sp.KledingKleur = (System.Drawing.Color.Blue);
+
+            try
+            {
+                if (sp.Skies == null || sp.Zwemvest == null)
+                {
+                    throw new NullReferenceException();
+                }
+            }
+
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("De sporter heeft geen skies of zwemvest!");
+            }
+
         }
 
         public void VerplaatsKabel()

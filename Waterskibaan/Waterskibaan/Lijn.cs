@@ -11,7 +11,7 @@ namespace Waterskibaan
     {
 
         private int plek;
-        public Sporter sp;
+        public Sporter sp = new Sporter(MoveCollection.GetWilleKeurigeMoves());
 
         public int PositieOpDeKabel
         {
