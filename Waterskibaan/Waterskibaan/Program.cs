@@ -10,13 +10,15 @@ namespace Waterskibaan
     {
         static void Main(string[] args)
         {
-            TestOpdracht2();
+/*            TestOpdracht2();
             Console.ReadLine();
             TestOpdracht3();
             Console.ReadLine();
             TestOpdracht5();
             Console.ReadLine();
             TestOpdracht8();
+            Console.ReadLine();*/
+            TestOpdracht10();
             Console.ReadLine();
         }
 
@@ -83,6 +85,30 @@ namespace Waterskibaan
             Sporter sporter = new Sporter(MoveCollection.GetWilleKeurigeMoves());
             Waterskibaan waterskibaan = new Waterskibaan(new LijnenVoorraad());
             waterskibaan.SporterStart(sporter);
+        }
+
+        static void TestOpdracht10()
+        {
+            WachtrijInstructie wachtrijInstructie = new WachtrijInstructie();
+            InstructieGroep instructieGroep = new InstructieGroep();
+            WachtrijStarten wachtrijStarten = new WachtrijStarten();
+            
+
+            for (int i = 0; i < 100; i++)
+            {
+                wachtrijInstructie.SporterNeemPlaatsInRij(new Sporter(MoveCollection.GetWilleKeurigeMoves()));
+            }
+
+            Console.WriteLine(wachtrijInstructie.GetAlleSporters().Count);
+
+            List<Sporter> sporters = wachtrijInstructie.SportersVerlatenRij(5);
+
+            foreach(Sporter sporter in sporters)
+            {
+                instructieGroep.SporterNeemPlaatsInRij(sporter);
+            }
+
+            Console.WriteLine(instructieGroep.GetAlleSporters().Count);
         }
     }
 }

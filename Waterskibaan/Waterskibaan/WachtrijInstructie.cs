@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class WachtrijInstructie
+    class WachtrijInstructie : Wachtrij
     {
+        public WachtrijInstructie()
+        {
+            MAX_LENGTE_RIJ = 100;
+        }
+       
+        public override string ToString()
+        {
+            string tekst = "";
+            tekst += "Dit is de rij die afwacht tot ze instructie krijgen";
+            return tekst;
+        }
     }
 }
