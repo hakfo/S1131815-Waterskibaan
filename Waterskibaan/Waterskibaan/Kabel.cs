@@ -31,8 +31,6 @@ namespace Waterskibaan
 
             if (IsStartPositieLeeg() == true)
             {
-                // Afdwingen dat de kabel niet boven de 9 komt. Doet ie anders wel :(
-                lijn.PositieOpDeKabel = 0;
                 _lijnen.AddFirst(lijn);
             }
             else
@@ -71,7 +69,7 @@ namespace Waterskibaan
                     if (last.PositieOpDeKabel == 9)
                     {
                         // Why no work?
-                        //last.PositieOpDeKabel = 0;
+                        last.PositieOpDeKabel = 0;
                         _lijnen.RemoveLast();
                         _lijnen.AddFirst(last);
                         _lijnen.Last.Value.sp.AantalRondenNogTeGaan--;
@@ -98,6 +96,7 @@ namespace Waterskibaan
             {
                 Lijn lijn = _lijnen.Last.Value;
                 _lijnen.RemoveLast();
+                lijn.PositieOpDeKabel = 0;
                 return lijn;
             }
             else

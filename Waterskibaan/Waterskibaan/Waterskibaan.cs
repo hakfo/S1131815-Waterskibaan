@@ -39,7 +39,7 @@ namespace Waterskibaan
             }
 
             Random rand = new Random();
-            int randomRondjes = 1; //rand.Next(1, 3);
+            int randomRondjes = rand.Next(1, 3);
             sp.AantalRondenNogTeGaan = randomRondjes;
             sp.KledingKleur = (System.Drawing.Color.Blue);
 
