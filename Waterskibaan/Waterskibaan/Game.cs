@@ -13,6 +13,7 @@ namespace Waterskibaan
         private static Timer timer;
         public Waterskibaan waterskibaan = new Waterskibaan(new LijnenVoorraad());
         static int counter = 0;
+        Queue<Sporter> sporters = new Queue<Sporter>();
 
         public void Initialize()
         {
@@ -20,17 +21,35 @@ namespace Waterskibaan
             timer.Elapsed += OnTimedEvent;
             timer.AutoReset = true;
             timer.Enabled = true;
+
+            for(int i = 0; i < 15; i++)
+            {
+                sporters.Enqueue(new Sporter(MoveCollection.GetWilleKeurigeMoves()));
+            }
+        }
+
+        void DequeueSporter()
+        {
+            if (sporters.Count > 0)
+            {
+                waterskibaan.SporterStart(sporters.Dequeue());
+            } 
         }
 
         public void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
 
             counter++;
-            Console.WriteLine(counter + " keer gerunt");
-            waterskibaan.SporterStart(new Sporter(MoveCollection.GetWilleKeurigeMoves()));
+            Console.WriteLine(counter + " seconde(s) voorbij");
+            DequeueSporter();
             waterskibaan.VerplaatsKabel();
             Console.WriteLine(waterskibaan.ToString());
-
+            
+            if (waterskibaan.IsFinished())
+            {
+                Console.WriteLine("Alle sporters zijn van de baan af");
+                timer.Stop();
+            }
         }
     }
 }

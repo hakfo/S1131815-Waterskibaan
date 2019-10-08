@@ -29,6 +29,7 @@ namespace Waterskibaan
         // Initialiseert de sporter en laat hem een paar rondjes gaan
         public void SporterStart(Sporter sp)
         {
+
             Lijn lijn = lijnenVoorraad.VerwijderEersteLijn();
 
             if (lijn != null)
@@ -60,6 +61,11 @@ namespace Waterskibaan
         {
             kabel.VerschuifLijnen();
             lijnenVoorraad.LijnToevoegenAanRij(kabel.VerwijderLijnVanKabel());
+        }
+
+        public bool IsFinished()
+        {
+            return kabel.Empty();
         }
 
         public override string ToString()

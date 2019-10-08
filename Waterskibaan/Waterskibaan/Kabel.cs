@@ -13,7 +13,6 @@ namespace Waterskibaan
         // Bepaal of een lijn aangekoppeld kan worden
         public bool IsStartPositieLeeg()
         {
-            // Console.WriteLine("IsStartPositieLeeg");
             if ((_lijnen.First == null) || (_lijnen.First.Value.PositieOpDeKabel != 0))
             {
                 return true;
@@ -27,7 +26,6 @@ namespace Waterskibaan
         // Voeg een lijn toe op positie 0
         public void NeemLijnInGebruik(Lijn lijn, LijnenVoorraad voorraad)
         {
-            // Console.WriteLine("NeemLijnInGebruik");
 
             if (IsStartPositieLeeg() == true)
             {
@@ -58,7 +56,6 @@ namespace Waterskibaan
             */
             #endregion
 
-            // Console.WriteLine("VerschuifLijnen");
 
             for (int i = 0; i < _lijnen.Count; i++)
             {
@@ -68,7 +65,6 @@ namespace Waterskibaan
                 {
                     if (last.PositieOpDeKabel == 9)
                     {
-                        // Why no work?
                         last.PositieOpDeKabel = 0;
                         _lijnen.RemoveLast();
                         _lijnen.AddFirst(last);
@@ -90,9 +86,8 @@ namespace Waterskibaan
         // 'Verwijder' de laatste lijn van de kabel.
         public Lijn VerwijderLijnVanKabel()
         {
-            // Console.WriteLine("VerwijderLijnVanKabel");
 
-            if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sp.AantalRondenNogTeGaan == 1)
+            if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sp.AantalRondenNogTeGaan <= 1)
             {
                 Lijn lijn = _lijnen.Last.Value;
                 _lijnen.RemoveLast();
@@ -106,11 +101,15 @@ namespace Waterskibaan
 
         }
 
+        public bool Empty()
+        {
+            return _lijnen.Count == 0;
+        }
+
         // ToString om de positie van de lijnen op de kabel te zien
 
         public override string ToString()
         {
-           // Console.WriteLine("ToString");
 
             LinkedListNode<Lijn> huidigeNode = _lijnen.First;
             string printLijst = "";
