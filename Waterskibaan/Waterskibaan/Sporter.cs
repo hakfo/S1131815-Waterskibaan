@@ -16,11 +16,13 @@ namespace Waterskibaan
         public Color KledingKleur;
         public int BehaaldePunten;
         public List<IMove> Moves;
-        public Lijn lijn;
+        public Lijn Lijn { get; set; }
 
         public Sporter(List<IMove> moves)
         {
             this.Moves = moves;
+            this.Zwemvest = new Zwemvest();
+            this.Skies = new Skies();
         }
 
         public override string ToString()

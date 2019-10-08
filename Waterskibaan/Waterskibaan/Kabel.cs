@@ -8,13 +8,13 @@ namespace Waterskibaan
 {
     class Kabel
     {
-        private LinkedList<Lijn> _lijnen = new LinkedList<Lijn>();
+        public LinkedList<Lijn> _lijnen = new LinkedList<Lijn>();
 
         // Bepaal of een lijn aangekoppeld kan worden
         public bool IsStartPositieLeeg()
         {
-            Console.WriteLine("IsStartPositieLeeg");
-            if (_lijnen.First == null || _lijnen.First.Value.PositieOpDeKabel != 0)
+            // Console.WriteLine("IsStartPositieLeeg");
+            if ((_lijnen.First == null) || (_lijnen.First.Value.PositieOpDeKabel != 0))
             {
                 return true;
             }
@@ -25,54 +25,66 @@ namespace Waterskibaan
         }
 
         // Voeg een lijn toe op positie 0
-        public void NeemLijnInGebruik(Lijn lijn)
+        public void NeemLijnInGebruik(Lijn lijn, LijnenVoorraad voorraad)
         {
-            Console.WriteLine("NeemLijnInGebruik");
+            // Console.WriteLine("NeemLijnInGebruik");
 
             if (IsStartPositieLeeg() == true)
             {
+                // Afdwingen dat de kabel niet boven de 9 komt. Doet ie anders wel :(
+                lijn.PositieOpDeKabel = 0;
                 _lijnen.AddFirst(lijn);
             }
             else
             {
                 Console.WriteLine("Lijn is niet leeg");
+                voorraad.LijnToevoegenAanRij(lijn);
             }
         }
 
         // Verhoog de positie van alle lijnen met 1
         public void VerschuifLijnen()
         {
-
+            #region
             // Eerste poging gebruik gemaakt van nodes, niet nodig. Bewaren als voorbeeld.
 
-/*            Console.WriteLine("VerschuifLijnen");
+            /*            Console.WriteLine("VerschuifLijnen");
 
-              LinkedListNode<Lijn> huidigeNode = _lijnen.First;
+                          LinkedListNode<Lijn> huidigeNode = _lijnen.First;
 
-              for(int i = _lijnen.Count; i > 0; i--)
-              {
-              huidigeNode.Value.PositieOpDeKabel++;
-              huidigeNode = huidigeNode.Next;
-              }
-*/
+                          for(int i = _lijnen.Count; i > 0; i--)
+                          {
+                          huidigeNode.Value.PositieOpDeKabel++;
+                          huidigeNode = huidigeNode.Next;
+                          }
+            */
+            #endregion
 
-
-            Console.WriteLine("VerschuifLijnen");
+            // Console.WriteLine("VerschuifLijnen");
 
             for (int i = 0; i < _lijnen.Count; i++)
             {
                 Lijn last = _lijnen.Last.Value;
 
-                if(last.PositieOpDeKabel == 9)
+                try
                 {
-                    last.PositieOpDeKabel = 0;
-                    _lijnen.RemoveLast();
-                    _lijnen.AddFirst(last);
-                    _lijnen.Last.Value.sp.AantalRondenNogTeGaan--;
+                    if (last.PositieOpDeKabel == 9)
+                    {
+                        // Why no work?
+                        //last.PositieOpDeKabel = 0;
+                        _lijnen.RemoveLast();
+                        _lijnen.AddFirst(last);
+                        _lijnen.Last.Value.sp.AantalRondenNogTeGaan--;
+                    }
+                    else
+                    {
+                        _lijnen.ElementAt(i).PositieOpDeKabel++;
+                        Console.WriteLine(_lijnen.ElementAt(i));
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    _lijnen.ElementAt(i).PositieOpDeKabel++;
+                    throw e;
                 }
             }
         }
@@ -80,7 +92,7 @@ namespace Waterskibaan
         // 'Verwijder' de laatste lijn van de kabel.
         public Lijn VerwijderLijnVanKabel()
         {
-            Console.WriteLine("VerwijderLijnVanKabel");
+            // Console.WriteLine("VerwijderLijnVanKabel");
 
             if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sp.AantalRondenNogTeGaan == 1)
             {
@@ -99,7 +111,7 @@ namespace Waterskibaan
 
         public override string ToString()
         {
-            Console.WriteLine("ToString");
+           // Console.WriteLine("ToString");
 
             LinkedListNode<Lijn> huidigeNode = _lijnen.First;
             string printLijst = "";

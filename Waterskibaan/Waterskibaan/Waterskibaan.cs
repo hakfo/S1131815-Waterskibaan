@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
+    class SkiesNotEquippedException : Exception { }
+    class ZwemvestNotEquippedException : Exception { }
     class Waterskibaan
     {
 
-        private LijnenVoorraad lijnenVoorraad = new LijnenVoorraad();
+        private LijnenVoorraad lijnenVoorraad;
         private Kabel kabel = new Kabel();
 
         public Waterskibaan(LijnenVoorraad lijnenVoorraad)
         {
+            this.lijnenVoorraad = lijnenVoorraad;
+
             for (int i = 0; i < 15; i++)
             {
                 Lijn lijn = new Lijn(0);
@@ -25,30 +29,36 @@ namespace Waterskibaan
         // Initialiseert de sporter en laat hem een paar rondjes gaan
         public void SporterStart(Sporter sp)
         {
-            kabel.NeemLijnInGebruik(sp.lijn);
+            Lijn lijn = lijnenVoorraad.VerwijderEersteLijn();
+
+            if (lijn != null)
+            {
+                sp.Lijn = lijn;
+                lijn.sp = sp;
+                kabel.NeemLijnInGebruik(lijn, lijnenVoorraad);
+            }
+
             Random rand = new Random();
-            int randomRondjes = rand.Next(0, 2);
+            int randomRondjes = 1; //rand.Next(1, 3);
             sp.AantalRondenNogTeGaan = randomRondjes;
             sp.KledingKleur = (System.Drawing.Color.Blue);
 
-            try
+
+            if (sp.Zwemvest == null)
             {
-                if (sp.Skies == null || sp.Zwemvest == null)
-                {
-                    throw new NullReferenceException();
-                }
+                throw new ZwemvestNotEquippedException();
             }
 
-            catch (NullReferenceException)
+            if (sp.Skies == null)
             {
-                Console.WriteLine("De sporter heeft geen skies of zwemvest!");
+                throw new SkiesNotEquippedException();
             }
-
         }
 
         // Haalt de lijn van de kabel en voegt hem toe aan de lijnenvoorraad
         public void VerplaatsKabel()
         {
+            kabel.VerschuifLijnen();
             lijnenVoorraad.LijnToevoegenAanRij(kabel.VerwijderLijnVanKabel());
         }
 
@@ -59,7 +69,9 @@ namespace Waterskibaan
             string print = "";
 
             print += voorraadLijn;
+            print += "\n";
             print += overzichtKabel;
+            print += "\n";
 
             return print;
         }

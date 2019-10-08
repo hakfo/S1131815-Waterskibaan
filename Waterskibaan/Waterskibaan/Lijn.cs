@@ -10,8 +10,11 @@ namespace Waterskibaan
     class Lijn
     {
 
+        static int counter = 0;
+        public int ID;
+
         private int plek;
-        public Sporter sp = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+        public Sporter sp;
 
         public int PositieOpDeKabel
         {
@@ -27,7 +30,14 @@ namespace Waterskibaan
 
         public Lijn(int positie)
         {
+            ID = counter;
             PositieOpDeKabel = positie;
+            counter++;
+        }
+
+        public override string ToString()
+        {
+            return "[" + ID + " " + PositieOpDeKabel + "]";
         }
     }
 

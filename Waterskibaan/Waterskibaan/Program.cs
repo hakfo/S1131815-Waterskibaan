@@ -18,14 +18,17 @@ namespace Waterskibaan
             // Console.ReadLine();
             // TestOpdracht8();
             // Console.ReadLine();
-            TestOpdracht10();
+            // TestOpdracht10();
+            // Console.ReadLine();
+            TestOpdracht11();
             Console.ReadLine();
         }
 
         // Test de kabel door er lijnen aan te hangen en deze rond te schuifen
+        #region TestOpdrachten
         static void TestOpdracht2()
         {
-            Kabel kabel = new Kabel();
+/*            Kabel kabel = new Kabel();
 
             Lijn lijn = new Lijn(0);
             Lijn lijn2 = new Lijn(0);
@@ -53,7 +56,7 @@ namespace Waterskibaan
             kabel.NeemLijnInGebruik(lijn6);
             kabel.VerschuifLijnen();
 
-            Console.WriteLine(kabel.ToString());
+            Console.WriteLine(kabel.ToString());*/
         }
 
         // Test de lijnenvoorraad door er lijnen aan toe te voegen en af te halen
@@ -120,6 +123,13 @@ namespace Waterskibaan
             }
 
             Console.WriteLine(instructieGroep.GetAlleSporters().Count);
+        }
+        #endregion
+        static void TestOpdracht11()
+        {
+            Game game = new Game();
+
+            game.Initialize();
         }
     }
 }

@@ -9,12 +9,15 @@ namespace Waterskibaan
     class LijnenVoorraad
     {
 
-        private Queue<Lijn> _lijnen = new Queue<Lijn>();
+        public Queue<Lijn> _lijnen = new Queue<Lijn>();
 
         // Voeg een gegeven lijn toe aan de rij
         public void LijnToevoegenAanRij(Lijn lijn)
         {
-            _lijnen.Enqueue(lijn);
+            if (lijn != null)
+            {
+                _lijnen.Enqueue(lijn);
+            }
         }
 
         // 'Verwijder' eerste lijn
