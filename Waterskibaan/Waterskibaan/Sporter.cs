@@ -17,6 +17,7 @@ namespace Waterskibaan
         public int BehaaldePunten;
         public List<IMove> Moves;
         public Lijn Lijn { get; set; }
+        public IMove HuidigeMove { get; set; }
 
         public Sporter(List<IMove> moves)
         {

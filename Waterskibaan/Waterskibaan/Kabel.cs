@@ -37,7 +37,7 @@ namespace Waterskibaan
                 voorraad.LijnToevoegenAanRij(lijn);
             }
         }
-
+    
         // Verhoog de positie van alle lijnen met 1
         public void VerschuifLijnen()
         {
@@ -73,7 +73,7 @@ namespace Waterskibaan
                     else
                     {
                         _lijnen.ElementAt(i).PositieOpDeKabel++;
-                        Console.WriteLine(_lijnen.ElementAt(i));
+                        //Console.WriteLine(_lijnen.ElementAt(i));
                     }
                 }
                 catch (Exception e)
@@ -86,7 +86,6 @@ namespace Waterskibaan
         // 'Verwijder' de laatste lijn van de kabel.
         public Lijn VerwijderLijnVanKabel()
         {
-
             if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sp.AantalRondenNogTeGaan <= 1)
             {
                 Lijn lijn = _lijnen.Last.Value;

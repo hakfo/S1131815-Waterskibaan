@@ -60,7 +60,7 @@ namespace Waterskibaan
     // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class Omdraaien : IMove
     {
-        public int MoeilijkheidsGraad { get { return 80; } }
+        public int MoeilijkheidsGraad { get { return 80; } } 
         public int Score { get { return 60; } }
         public int Move()
         {

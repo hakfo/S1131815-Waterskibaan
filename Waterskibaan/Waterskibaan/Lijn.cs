@@ -37,7 +37,7 @@ namespace Waterskibaan
 
         public override string ToString()
         {
-            return "[" + ID + " " + PositieOpDeKabel + "]";
+            return $"[Lijn nummer = [{ID}][PositieOpDeKabel = [{PositieOpDeKabel}]]";
         }
     }
 

@@ -14,6 +14,14 @@ namespace Waterskibaan
             MAX_LENGTE_RIJ = 5;
         }
 
+        public void InstructieAfgelopen(InstructieAfgelopenArgs args)
+        {
+            for (int i = 0; i < MAX_LENGTE_RIJ; i++)
+            {
+                SporterNeemPlaatsInRij(args.sportersNaarInstructieGroep.First());
+            }
+        }
+
         public override string ToString()
         {
             string tekst = "";

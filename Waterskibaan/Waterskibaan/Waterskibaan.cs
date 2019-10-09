@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class SkiesNotEquippedException : Exception { }
-    class ZwemvestNotEquippedException : Exception { }
     class Waterskibaan
     {
 
-        private LijnenVoorraad lijnenVoorraad;
-        private Kabel kabel = new Kabel();
+        public LijnenVoorraad lijnenVoorraad;
+        public Kabel kabel = new Kabel();
+        public bool isGestart = false;
 
         public Waterskibaan(LijnenVoorraad lijnenVoorraad)
         {
@@ -47,13 +46,23 @@ namespace Waterskibaan
 
             if (sp.Zwemvest == null)
             {
-                throw new ZwemvestNotEquippedException();
+                sp.Zwemvest = new Zwemvest();
             }
 
             if (sp.Skies == null)
             {
-                throw new SkiesNotEquippedException();
+                sp.Skies = new Skies();
             }
+        }
+
+        public void Start()
+        {
+            isGestart = true;
+        }
+
+        public void Stop()
+        {
+            isGestart = false;
         }
 
         // Haalt de lijn van de kabel en voegt hem toe aan de lijnenvoorraad
@@ -61,11 +70,6 @@ namespace Waterskibaan
         {
             kabel.VerschuifLijnen();
             lijnenVoorraad.LijnToevoegenAanRij(kabel.VerwijderLijnVanKabel());
-        }
-
-        public bool IsFinished()
-        {
-            return kabel.Empty();
         }
 
         public override string ToString()

@@ -8,9 +8,15 @@ namespace Waterskibaan
 {
     class WachtrijInstructie : Wachtrij
     {
+
         public WachtrijInstructie()
         {
             MAX_LENGTE_RIJ = 100;
+        }
+
+        public void NieuweBezoeker(NieuweBezoekerArgs args)
+        {
+            SporterNeemPlaatsInRij(args.sporter);
         }
        
         public override string ToString()
