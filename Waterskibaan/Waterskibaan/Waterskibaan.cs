@@ -29,12 +29,14 @@ namespace Waterskibaan
         public void SporterStart(Sporter sp)
         {
 
+            Console.WriteLine(sp + "" + sp.ID + " DIT IS EEN BIGGO TESTO");
+
             Lijn lijn = lijnenVoorraad.VerwijderEersteLijn();
 
             if (lijn != null)
             {
                 sp.Lijn = lijn;
-                lijn.sporter = sp;
+                lijn.sp = sp;
                 kabel.NeemLijnInGebruik(lijn, lijnenVoorraad);
             }
 

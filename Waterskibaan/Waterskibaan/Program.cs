@@ -100,7 +100,7 @@ namespace Waterskibaan
         }
 
         // Test de wachtrijen 
-        // NOOT: Alle sporters die niet toegevoegd worden verdwijnen op het moment in het niks. Uitgaan van correcte invoer?
+
         static void TestOpdracht10()
         {
             WachtrijInstructie wachtrijInstructie = new WachtrijInstructie();
