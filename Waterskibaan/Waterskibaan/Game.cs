@@ -41,7 +41,7 @@ namespace Waterskibaan
             NieuweBezoeker += wachtrijInstructie.NieuweBezoeker;
             InstructieAfgelopen += instructieGroep.InstructieAfgelopen;
 
-            timer = new Timer(1000);
+            timer = new Timer(500);
             timer.Elapsed += OnTimedEvent;
             timer.Elapsed += OnLijnVerplaatst;
             timer.AutoReset = true;
@@ -49,7 +49,7 @@ namespace Waterskibaan
 
             for (int i = 0; i < 20; i++)
             {
-                sporters.Enqueue(new Sporter(MoveCollection.GetWilleKeurigeMoves()));
+                sporters.Enqueue(new Sporter(MoveCollection.GetWillekeurigeMoves(5)));
             }
         }
 
@@ -78,32 +78,48 @@ namespace Waterskibaan
                 {
                     waterskibaan.VerplaatsKabel();
 
-                    Random rand = new Random();
-                    int randomMovePercentage = rand.Next(0, 4);
-                    foreach (Lijn lijn in waterskibaan.kabel._lijnen)
+                    if (lvCounter % 60 == 0)
                     {
+                        Console.WriteLine("\n/*/*/*/*/\n");
+                        foreach (Lijn lijn in waterskibaan.kabel._lijnen)
+                        {
+                            Console.WriteLine($"De sporter aan lijn {lijn.ID} heeft een huidige score van {lijn.sporter.BehaaldePunten}");
+                        }
+                        Console.WriteLine("\n/*/*/*/*/\n");
+                    }
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // TO DO:                                                                                         //
+                    // ZORG DAT ALLE SPORTERS EEN KANS VAN 25% HEBBEN OM EEN MOVE TE DOEN.                            //
+                    // VOLGENSMIJ DOEN ZE DAT AL, MAAR DE PRINT GEEFT ALLE ID'S EN DE MOVE VAN EEN ENKELING WEER.     //
+                    // ZORGEN DAT ER ALLEEN GEPRINT WORDT ALS DIE SPECIFIEKE SPORTER OOK EEN MOVE ECHT HEEFT GEDAAN   //
+                    //                                                                                                //
+                    // PS: ER GEBEURT NOG NIKS MET DE PUNTEN, EN VOLGENSMIJ SLAGEN DE MOVES OP HET MOMENT OOK ALTIJD. //
+                    // PLS FIX                                                                                        //
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                    
+
+                    for (int i = 0; i < waterskibaan.kabel._lijnen.Count; i++)
+                    {
+                        Random rand = new Random();
+                        int randomMovePercentage = rand.Next(0, 4);
                         if (randomMovePercentage > 1)
                         {
-                            Random randMove = new Random();
-                            int randomMove = randMove.Next(0, lijn.sp.Moves.Count);
-                            
+                            Lijn temp = waterskibaan.kabel._lijnen.ElementAt(i);
+                            int randomMove = rand.Next(0, temp.sporter.Moves.Count());
+                            int score = temp.sporter.Moves.ElementAt(randomMove).Move();
+                            string naam = temp.sporter.Moves.ElementAt(randomMove).Naam;
+                            temp.sporter.BehaaldePunten += score;
 
-                            ////////////////////////////////////////////////////////////////////////////////////////////////////
-                            // TO DO:                                                                                         //
-                            // ZORG DAT ALLE SPORTERS EEN KANS VAN 25% HEBBEN OM EEN MOVE TE DOEN.                            //
-                            // VOLGENSMIJ DOEN ZE DAT AL, MAAR DE PRINT GEEFT ALLE ID'S EN DE MOVE VAN EEN ENKELING WEER.     //
-                            // ZORGEN DAT ER ALLEEN GEPRINT WORDT ALS DIE SPECIFIEKE SPORTER OOK EEN MOVE ECHT HEEFT GEDAAN   //
-                            //                                                                                                //
-                            // PS: ER GEBEURT NOG NIKS MET DE PUNTEN, EN VOLGENSMIJ SLAGEN DE MOVES OP HET MOMENT OOK ALTIJD. //
-                            // PLS FIX                                                                                        //
-                            ////////////////////////////////////////////////////////////////////////////////////////////////////
-                            
-
-                            lijn.sp.HuidigeMove = lijn.sp.Moves.ElementAt(randomMove);
-                            Console.WriteLine($"De sporter op lijn {lijn.ID} heeft een {lijn.sp.HuidigeMove} gedaan!");
-
+                            if(score != 0)
+                            {
+                                Console.WriteLine($"De sporter aan lijn {temp.ID} heeft een {naam} geprobeerd, dit heeft {score} punten opgeleverd. Zijn huidige totale score is {temp.sporter.BehaaldePunten}");
+                            }
                         }
                     }
+
                 }
             }
         }
@@ -121,7 +137,7 @@ namespace Waterskibaan
             if (oteCounter % 3 == 0)
             {
                 NieuweBezoekerArgs nieuweBezoekerArgs = new NieuweBezoekerArgs();
-                nieuweBezoekerArgs.sporter = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+                nieuweBezoekerArgs.sporter = new Sporter(MoveCollection.GetWillekeurigeMoves(5));
                 NieuweBezoekers(nieuweBezoekerArgs);
                 Console.WriteLine("\n" + wachtrijInstructie.GetAlleSporters().Count + " bezoeker(s) in de WachtrijInstructie\n");
             }

@@ -82,15 +82,15 @@ namespace Waterskibaan
         // Test de sporter z'n moves
         static void TestOpdracht5()
         {
-            Sporter sporter = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+            Sporter sporter = new Sporter(MoveCollection.GetWillekeurigeMoves(5));
             Console.WriteLine(sporter.ToString());
         }
 
         // Test of de sporter z'n zwemvest en skies heeft
         static void TestOpdracht8()
         {
-            Sporter sporter1 = new Sporter(MoveCollection.GetWilleKeurigeMoves());
-            Sporter sporter2 = new Sporter(MoveCollection.GetWilleKeurigeMoves());
+            Sporter sporter1 = new Sporter(MoveCollection.GetWillekeurigeMoves(5));
+            Sporter sporter2 = new Sporter(MoveCollection.GetWillekeurigeMoves(5));
             Waterskibaan waterskibaan = new Waterskibaan(new LijnenVoorraad());
 
             sporter2.Zwemvest = new Zwemvest();
@@ -110,7 +110,7 @@ namespace Waterskibaan
 
             for (int i = 0; i < 100; i++)
             {
-                wachtrijInstructie.SporterNeemPlaatsInRij(new Sporter(MoveCollection.GetWilleKeurigeMoves()));
+                wachtrijInstructie.SporterNeemPlaatsInRij(new Sporter(MoveCollection.GetWillekeurigeMoves(5)));
             }
 
             Console.WriteLine(wachtrijInstructie.GetAlleSporters().Count);

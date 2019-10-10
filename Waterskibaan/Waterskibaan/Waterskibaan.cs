@@ -34,7 +34,7 @@ namespace Waterskibaan
             if (lijn != null)
             {
                 sp.Lijn = lijn;
-                lijn.sp = sp;
+                lijn.sporter = sp;
                 kabel.NeemLijnInGebruik(lijn, lijnenVoorraad);
             }
 

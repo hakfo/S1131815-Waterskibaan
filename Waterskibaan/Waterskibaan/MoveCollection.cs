@@ -11,100 +11,117 @@ namespace Waterskibaan
         static List<IMove> moves = new List<IMove>();
 
         // Voegt willekeurige moves toe aan een lijst die meegegeven wordt aan een sporter
-        public static List<IMove> GetWilleKeurigeMoves()
+        public static List<IMove> GetWillekeurigeMoves(int num)
         {
-            Random rand1 = new Random();
-            Random rand2 = new Random();
-            int grootte = rand1.Next(1, 11);
+            List<IMove> Moves = new List<IMove>();
+            Moves.Add(new Jump());
+            Moves.Add(new EenArm());
+            Moves.Add(new EenBeen());
+            Moves.Add(new Omdraaien());
 
-            for (int i = 0; i < grootte; i++)
+            Random rand = new Random();
+            List<IMove> selectedMoves = new List<IMove>();
+
+            for (int i = 0; i < num; i++)
             {
-
-                int move = rand2.Next(1, 5);
-
-                if (move == 1)
-                {
-                    moves.Add(new Jump());
-                } else if (move == 2)
-                {
-                    moves.Add(new Omdraaien());
-                } else if (move == 3)
-                {
-                    moves.Add(new EenBeen());
-                } else if (move == 4)
-                {
-                    moves.Add(new EenArm());
-                }
+                var index = rand.Next(Moves.Count());
+                selectedMoves.Add(Moves[index]);
+                //Console.WriteLine(Moves[rand.Next(Moves.Count)]);
             }
-            return moves;
+
+            return selectedMoves;
         }
     }
+
 
     // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class Jump : IMove
     {
-        public int MoeilijkheidsGraad { get { return 50; } }
-        public int Score { get { return 30; } }
+        public int MoeilijkheidsGraad { get; set; }
+        public int Score { get; set; }
+        public string Naam { get; set; }
         public int Move()
         {
+            Naam = "Jump";
+            MoeilijkheidsGraad = 50;
             Random rand = new Random();
             int randomNummer = rand.Next(0, 101);
-            if (randomNummer < MoeilijkheidsGraad)
+            if (51 < MoeilijkheidsGraad)
             {
                 return 0;
             }
-            return Score;
+            else
+            {
+                return Score = 30;
+            }
         }
     }
 
     // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class Omdraaien : IMove
     {
-        public int MoeilijkheidsGraad { get { return 80; } } 
-        public int Score { get { return 60; } }
+        public int MoeilijkheidsGraad { get; set; }
+        public int Score { get; set; }
+        public string Naam { get; set; }
         public int Move()
         {
+            Naam = "Omdraaien";
+            MoeilijkheidsGraad = 80;
             Random rand = new Random();
             int randomNummer = rand.Next(0, 101);
             if (randomNummer < MoeilijkheidsGraad)
             {
                 return 0;
             }
-            return Score;
+            else
+            {
+                return Score = 60;
+            }
         }
     }
 
     // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class EenBeen : IMove
     {
-        public int MoeilijkheidsGraad { get { return 30; } }
-        public int Score { get { return 20; } }
+        public int MoeilijkheidsGraad { get; set; }
+        public int Score { get; set; }
+        public string Naam { get; set; }
         public int Move()
         {
+            Naam = "EenBeen";
+            MoeilijkheidsGraad = 30;
             Random rand = new Random();
             int randomNummer = rand.Next(0, 101);
             if (randomNummer < MoeilijkheidsGraad)
             {
                 return 0;
             }
-            return Score;
+            else
+            {
+                return Score = 20;
+            }
         }
     }
 
     // Bepaalt de move, de moeilijkheidsgraad, de score en de parameters die bepalen of deze move slaagt of niet
     public class EenArm : IMove
     {
-        public int MoeilijkheidsGraad { get { return 20; } }
-        public int Score { get { return 10; } }
+        public int MoeilijkheidsGraad { get; set; }
+        public int Score { get; set; }
+        public string Naam { get; set; }
         public int Move()
         {
+            Naam = "EenArm";
+            MoeilijkheidsGraad = 20;
             Random rand = new Random();
             int randomNummer = rand.Next(0, 101);
             if (randomNummer < MoeilijkheidsGraad)
             {
                 return 0;
+            } else
+            {
+                return Score = 10;
             }
-            return Score;
         }
     }
 }

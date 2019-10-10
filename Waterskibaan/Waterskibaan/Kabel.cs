@@ -68,7 +68,7 @@ namespace Waterskibaan
                         last.PositieOpDeKabel = 0;
                         _lijnen.RemoveLast();
                         _lijnen.AddFirst(last);
-                        _lijnen.Last.Value.sp.AantalRondenNogTeGaan--;
+                        _lijnen.Last.Value.sporter.AantalRondenNogTeGaan--;
                     }
                     else
                     {
@@ -86,7 +86,7 @@ namespace Waterskibaan
         // 'Verwijder' de laatste lijn van de kabel.
         public Lijn VerwijderLijnVanKabel()
         {
-            if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sp.AantalRondenNogTeGaan <= 1)
+            if (_lijnen.Last.Value.PositieOpDeKabel == 9 && _lijnen.Last.Value.sporter.AantalRondenNogTeGaan <= 1)
             {
                 Lijn lijn = _lijnen.Last.Value;
                 _lijnen.RemoveLast();

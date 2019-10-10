@@ -14,13 +14,19 @@ namespace Waterskibaan
         public Zwemvest Zwemvest;
         public Skies Skies;
         public Color KledingKleur;
-        public int BehaaldePunten;
+        public int BehaaldePunten { get; set; }
         public List<IMove> Moves;
         public Lijn Lijn { get; set; }
         public IMove HuidigeMove { get; set; }
-
+        int punten;
         public Sporter(List<IMove> moves)
         {
+            BehaaldePunten = 0;
+            foreach(IMove move in moves)
+            {
+                punten = move.Score;
+                BehaaldePunten = punten;
+            }
             this.Moves = moves;
             this.Zwemvest = new Zwemvest();
             this.Skies = new Skies();
