@@ -14,7 +14,7 @@ namespace Waterskibaan
         public int ID;
 
         private int plek;
-        public Sporter sporter;
+        public Sporter sp;
 
         public int PositieOpDeKabel
         {

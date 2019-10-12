@@ -9,7 +9,8 @@ namespace Waterskibaan
 {
     class Sporter
     {
-
+        static int counter = 0;
+        public int ID;
         public int AantalRondenNogTeGaan = 0;
         public Zwemvest Zwemvest;
         public Skies Skies;
@@ -30,6 +31,9 @@ namespace Waterskibaan
             this.Moves = moves;
             this.Zwemvest = new Zwemvest();
             this.Skies = new Skies();
+
+            ID = counter;
+            counter++;
         }
 
         public override string ToString()

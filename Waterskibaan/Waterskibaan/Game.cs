@@ -83,7 +83,7 @@ namespace Waterskibaan
                         Console.WriteLine("\n/*/*/*/*/\n");
                         foreach (Lijn lijn in waterskibaan.kabel._lijnen)
                         {
-                            Console.WriteLine($"De sporter aan lijn {lijn.ID} heeft een huidige score van {lijn.sporter.BehaaldePunten}");
+                            Console.WriteLine($"De sporter aan lijn {lijn.ID} heeft een huidige score van {lijn.sp.BehaaldePunten}");
                         }
                         Console.WriteLine("\n/*/*/*/*/\n");
                     }
@@ -94,7 +94,7 @@ namespace Waterskibaan
                     // VOLGENSMIJ DOEN ZE DAT AL, MAAR DE PRINT GEEFT ALLE ID'S EN DE MOVE VAN EEN ENKELING WEER.     //
                     // ZORGEN DAT ER ALLEEN GEPRINT WORDT ALS DIE SPECIFIEKE SPORTER OOK EEN MOVE ECHT HEEFT GEDAAN   //
                     //                                                                                                //
-                    // PS: ER GEBEURT NOG NIKS MET DE PUNTEN, EN VOLGENSMIJ SLAGEN DE MOVES OP HET MOMENT OOK ALTIJD. //
+                    // PS: PUNTEN ZIJN ZEER KAPOT                                                                     //
                     // PLS FIX                                                                                        //
                     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -108,15 +108,13 @@ namespace Waterskibaan
                         if (randomMovePercentage > 1)
                         {
                             Lijn temp = waterskibaan.kabel._lijnen.ElementAt(i);
-                            int randomMove = rand.Next(0, temp.sporter.Moves.Count());
-                            int score = temp.sporter.Moves.ElementAt(randomMove).Move();
-                            string naam = temp.sporter.Moves.ElementAt(randomMove).Naam;
-                            temp.sporter.BehaaldePunten += score;
+                            int randomMove = rand.Next(0, temp.sp.Moves.Count());
+                            int score = temp.sp.Moves.ElementAt(randomMove).Move();
+                            string naam = temp.sp.Moves.ElementAt(randomMove).Naam;
+                            temp.sp.HuidigeMove = temp.sp.Moves.ElementAt(randomMove);
+                            temp.sp.BehaaldePunten += score;
 
-                            if(score != 0)
-                            {
-                                Console.WriteLine($"De sporter aan lijn {temp.ID} heeft een {naam} geprobeerd, dit heeft {score} punten opgeleverd. Zijn huidige totale score is {temp.sporter.BehaaldePunten}");
-                            }
+                            Console.WriteLine($"De sporter {temp.sp.ID} aan lijn {temp.ID} heeft een {naam} geprobeerd, dit heeft {score} punten opgeleverd. Zijn huidige totale score is {temp.sp.BehaaldePunten}");
                         }
                     }
 
