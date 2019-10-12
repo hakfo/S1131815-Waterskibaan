@@ -97,5 +97,11 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Waterskibaan\Waterskibaan.csproj">
+      <Project>{421b13c2-a022-4cff-bea2-bca49bae08c3}</Project>
+      <Name>Waterskibaan</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

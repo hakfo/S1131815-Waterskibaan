@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class Sporter
+    public class Sporter
     {
         static int counter = 0;
         public int ID;

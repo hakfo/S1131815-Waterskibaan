@@ -7,16 +7,12 @@ using System.Timers;
 
 namespace Waterskibaan
 {
-    class Game
+    public class Game
     {
-
-
-        // WERKT ALLES NOG.EXE
-
         private static Timer timer;
         public Waterskibaan waterskibaan = new Waterskibaan(new LijnenVoorraad());
-        static int oteCounter = 0;
-        static int lvCounter = 0;
+        public int oteCounter = 0;
+        public static int lvCounter = 0;
         Queue<Sporter> sporters = new Queue<Sporter>();
 
         public delegate void NieuweBezoekerHandler(NieuweBezoekerArgs args);
@@ -44,7 +40,7 @@ namespace Waterskibaan
             NieuweBezoeker += wachtrijInstructie.NieuweBezoeker;
             InstructieAfgelopen += instructieGroep.InstructieAfgelopen;
 
-            timer = new Timer(500);
+            timer = new Timer(1000);
             timer.Elapsed += OnTimedEvent;
             timer.Elapsed += OnLijnVerplaatst;
             timer.AutoReset = true;
@@ -129,11 +125,6 @@ namespace Waterskibaan
         {
             oteCounter++;
             Console.WriteLine(oteCounter + " seconde(s) voorbij");
-
-            if (wachtrijStarten.GetAlleSporters().Count >= 10)
-            {
-                waterskibaan.Start();
-            }
 
             if (oteCounter % 3 == 0)
             {

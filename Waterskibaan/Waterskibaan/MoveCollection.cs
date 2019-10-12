@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    static class MoveCollection
+    public static class MoveCollection
     {
         static List<IMove> moves = new List<IMove>();
 

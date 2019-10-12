@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class NieuweBezoekerArgs
+    public class NieuweBezoekerArgs
     {
         public Sporter sporter { get; set; }
     }

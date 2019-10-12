@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Waterskibaan
 {
-    class WachtrijStarten : Wachtrij
+    public class WachtrijStarten : Wachtrij
     {
 
         public WachtrijStarten()

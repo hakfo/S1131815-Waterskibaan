@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Waterskibaan
 {
 
-    class Lijn
+    public class Lijn
     {
 
         static int counter = 0;
