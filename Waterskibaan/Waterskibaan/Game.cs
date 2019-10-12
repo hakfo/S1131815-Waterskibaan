@@ -10,6 +10,9 @@ namespace Waterskibaan
     class Game
     {
 
+
+        // WERKT ALLES NOG.EXE
+
         private static Timer timer;
         public Waterskibaan waterskibaan = new Waterskibaan(new LijnenVoorraad());
         static int oteCounter = 0;
