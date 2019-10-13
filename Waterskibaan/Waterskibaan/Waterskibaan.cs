@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +29,6 @@ namespace Waterskibaan
         // Initialiseert de sporter en laat hem een paar rondjes gaan
         public void SporterStart(Sporter sp)
         {
-
-            Console.WriteLine(sp + "" + sp.ID + " DIT IS EEN BIGGO TESTO");
-
             Lijn lijn = lijnenVoorraad.VerwijderEersteLijn();
 
             if (lijn != null)
@@ -43,7 +41,14 @@ namespace Waterskibaan
             Random rand = new Random();
             int randomRondjes = rand.Next(1, 3);
             sp.AantalRondenNogTeGaan = randomRondjes;
-            sp.KledingKleur = (System.Drawing.Color.Blue);
+
+
+            int a = rand.Next(0, 255);
+            int r = rand.Next(0, 255);
+            int g = rand.Next(0, 255);
+            int b = rand.Next(0, 255);
+
+            sp.KledingKleur = Color.FromArgb(a, r, g, b);
 
 
             if (sp.Zwemvest == null)

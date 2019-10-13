@@ -45,11 +45,6 @@ namespace Waterskibaan
             timer.Elapsed += OnLijnVerplaatst;
             timer.AutoReset = true;
             timer.Enabled = true;
-
-            for (int i = 0; i < 20; i++)
-            {
-                sporters.Enqueue(new Sporter(MoveCollection.GetWillekeurigeMoves(5)));
-            }
         }
 
         public event EventHandler LijnVerplaatst;
@@ -67,9 +62,11 @@ namespace Waterskibaan
                 {
                     List<Sporter> tempSporterList = wachtrijStarten.SportersVerlatenRij(1);
 
+
                     foreach (Sporter tempSporter in tempSporterList)
                     {
                         waterskibaan.SporterStart(tempSporter);
+                        tempSporter.ID++;
                         Console.WriteLine("Er is een sporter gestart");
                     }
                 }
@@ -97,9 +94,6 @@ namespace Waterskibaan
                     // PLS FIX                                                                                        //
                     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-                    
-
                     for (int i = 0; i < waterskibaan.kabel._lijnen.Count; i++)
                     {
                         Random rand = new Random();
@@ -116,7 +110,6 @@ namespace Waterskibaan
                             Console.WriteLine($"De sporter {temp.sp.ID} aan lijn {temp.ID} heeft een {naam} geprobeerd, dit heeft {score} punten opgeleverd. Zijn huidige totale score is {temp.sp.BehaaldePunten}");
                         }
                     }
-
                 }
             }
         }
@@ -158,6 +151,7 @@ namespace Waterskibaan
 
                 Console.WriteLine(instructieGroep.GetAlleSporters().Count + " bezoeker(s) in de InstructieGroep");
                 Console.WriteLine(wachtrijStarten.GetAlleSporters().Count + " bezoeker(s) in de WachtrijStarten\n");
+
             }
         }
     }
