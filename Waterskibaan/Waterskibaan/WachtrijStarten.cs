@@ -14,6 +14,14 @@ namespace Waterskibaan
             MAX_LENGTE_RIJ = 20;
         }
 
+        public void OnInstructieAfgelopen(InstructieAfgelopenArgs args)
+        {
+            foreach (Sporter sporter in args.sportersNaarVolgendeGroep) 
+            {
+                SporterNeemPlaatsInRij(sporter);
+            }
+        }
+
         public override string ToString()
         {
             string tekst = "";

@@ -31,174 +31,207 @@ namespace WaterskibaanGame
         LinkedList<int> IDs = new LinkedList<int>();
         List<int> scores = new List<int>();
 
+        int score0;
+        int score1;
+        int score2;
+        int score3;
+        int score4;
+
+        int idscore0;
+        int idscore1;
+        int idscore2;
+        int idscore3;
+        int idscore4;
+
         public MainWindow()
         {
             InitializeComponent();
             game.Initialize();
         }
 
+        // Als er op het start knopje gedrukt wordt voert hij dit uit
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             game.waterskibaan.Start();
-
-            int i = 0;
-
-            Counter.Content = game.oteCounter;
-            WachtrijInstructieNummer.Content = game.wachtrijInstructie.GetAlleSporters().Count;
-            InstructieGroepNummer.Content = game.instructieGroep.GetAlleSporters().Count;
-            WachtrijStartenNummer.Content = game.wachtrijStarten.GetAlleSporters().Count;
-            LijnenvoorraadCounter.Content = game.waterskibaan.lijnenVoorraad.GetAantalLijnen();
-
-            i++;
-
-            try
+            while (game.waterskibaan.isGestart)
             {
-                if (game.oteCounter % 4 == 0)
+                // Zet de genoemde labels op de gegeven waardes. De counter houdt de tijd bij. De rest spreekt voor zichzelf.
+                Counter.Content = game.oteCounter;
+                WachtrijInstructieNummer.Content = game.wachtrijInstructie.GetAlleSporters().Count;
+                InstructieGroepNummer.Content = game.instructieGroep.GetAlleSporters().Count;
+                WachtrijStartenNummer.Content = game.wachtrijStarten.GetAlleSporters().Count;
+                LijnenvoorraadCounter.Content = game.waterskibaan.lijnenVoorraad.GetAantalLijnen();
+
+                // De code werkt blijkbaar wel met een try-catch blok. Het is niet wenselijk gedrag, maar zorgt er wel voor dat ik kan blijven debuggen.
+                // De code gooit momenteel regelmatig een ArgumentOutOfRange exception. Achterhalen waar dit vandaan komt.
+                try
                 {
-                    System.Drawing.Color kleur = game.waterskibaan.kabel._lijnen.ElementAt(i).sp.KledingKleur;
-                    int id = game.waterskibaan.kabel._lijnen.ElementAt(i).sp.ID;
-                    Brush tempBrush = new SolidColorBrush(Color.FromArgb(kleur.A, kleur.R, kleur.G, kleur.B));
-                    Brush wit = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-                    colors.AddFirst(tempBrush);
-                    IDs.AddFirst(id);
+                    if (game.oteCounter % 4 == 0)
+                    {
+                        // Dit blok zorgt ervoor dat de System.Drawing.Color naar een System.Windows.Media.Brush gezet wordt.
+                        // Dit wordt gebruikt om de kleur van de cirkels die de positie weergeven op de kabelbaan te veranderen om zo een volgorde te simuleren.
+                        // Daarnaast wordt het ID van de speler meegegeven zodat de volgorde ook gevolgd kan worden op nummer.
+                        
+
+                        if (game.waterskibaan.kabel._lijnen.Count > 0)
+                        {
+                            System.Drawing.Color kleur = game.waterskibaan.kabel._lijnen.ElementAt(0).sp.KledingKleur;
+                            Brush tempBrush = new SolidColorBrush(Color.FromArgb(kleur.A, kleur.R, kleur.G, kleur.B));
+                            Brush wit = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+
+                            if (game.waterskibaan.kabel._lijnen.ElementAt(0) != null)
+                            {
+                                colors.AddFirst(tempBrush);
+                            }
+                            else
+                            {
+                                colors.AddFirst(wit);
+                            }
+
+                            int id = game.waterskibaan.kabel._lijnen.ElementAt(0).sp.ID;
+                            IDs.AddFirst(id);
+
+                            int score = game.waterskibaan.kabel._lijnen.ElementAt(0).sp.BehaaldePunten;
+                            scores.Add(score);
 
 
-                    Positie0.Fill = colors.ElementAt(0) ?? wit;
-                    IDSpeler0.Content = IDs.ElementAt(0);
-                    Positie1.Fill = colors.ElementAt(1) ?? wit;
-                    IDSpeler1.Content = IDs.ElementAt(1);
-                    Positie2.Fill = colors.ElementAt(2) ?? wit;
-                    IDSpeler2.Content = IDs.ElementAt(2);
-                    Positie3.Fill = colors.ElementAt(3) ?? wit;
-                    IDSpeler3.Content = IDs.ElementAt(3);
-                    Positie4.Fill = colors.ElementAt(4) ?? wit;
-                    IDSpeler4.Content = IDs.ElementAt(4);
-                    Positie5.Fill = colors.ElementAt(5) ?? wit;
-                    IDSpeler5.Content = IDs.ElementAt(5);
-                    Positie6.Fill = colors.ElementAt(6) ?? wit;
-                    IDSpeler6.Content = IDs.ElementAt(6);
-                    Positie7.Fill = colors.ElementAt(7) ?? wit;
-                    IDSpeler7.Content = IDs.ElementAt(7);
-                    Positie8.Fill = colors.ElementAt(8) ?? wit;
-                    IDSpeler8.Content = IDs.ElementAt(8);
-                    Positie9.Fill = colors.ElementAt(9) ?? wit;
-                    IDSpeler9.Content = IDs.ElementAt(9);
-
-                    int score = game.waterskibaan.kabel._lijnen.ElementAt(i).sp.BehaaldePunten;
-                    scores.Add(score);
-
-                    scores.Sort();
-                    scores.Reverse();
-                    LeaderboardScore0.Content = scores[0];
-                    LeaderboardScore1.Content = scores[1];
-                    LeaderboardScore2.Content = scores[2];
-                    LeaderboardScore3.Content = scores[3];
-                    LeaderboardScore4.Content = scores[4];
-
-                    ///////////////////////////////////////////////////////////////////////////////////////////////
-                    ///                                           T O   D O :                                   ///
-                    ///     Op het moment werkt het bovenstaande ongeveer. De kleuren gaan redelijk             ///
-                    ///     netjes over naar de volgende. Helaas beginnen de IDs om een of andere reden         ///
-                    ///     vanaf 2. Daarnaast is er een soort ritme waarbij elk 5e ID/kleur dubbel geprint     ///
-                    ///     wordt en dus niet klopt. Het opvolgende ID/kleur wordt overgeslagen. Het leader-    ///
-                    ///     board zoals die hierboven staat werkt in principe ook. De scores worden netjes      ///
-                    ///     gesorteerd en gedisplayed. Soms verdwijnen echter scores. Nog onzeker waarom.       ///
-                    ///     (garbage collector?) Probeer nu met onderstaande code de LinkedList van IDs en      ///
-                    ///     de List van scores om te zetten in een Dictionary zodat ik kan sorteren maar wel    ///
-                    ///     de goede ID bij de goede score houdt. Tot nu toe crashed onderstaande code echter   ///
-                    ///     en ik kan niet goed gedisplayed krijgen wat de error inhoudt. Ik weet enkel dat     ///
-                    ///     het een ArgumentOutOfRange exception betreft. Blijkbaar gooit hij die de hele tijd  ///
-                    ///     al maar heeft ie niet voor directe opvallende problemen gezorgd. Met onderstaande   ///
-                    ///     code werkt het echter helemaal niet meer.                                           ///
-                    ///                                                                                         ///
-                    ///     Tevens is de huidige manier van refreshen niet optimaal. Ik kan het programma op    ///
-                    ///     het moment niet meer stoppen als het eenmal begonnen is. De buttons lijken te       ///
-                    ///     freezen. Nog onzeker hoe ik dit ga fixen.                                           ///
-                    ///                                                                                         ///
-                    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-
-                    /*                  System.Drawing.Color kleur = game.waterskibaan.kabel._lijnen.ElementAt(i).sp.KledingKleur;
-                                        int id = game.waterskibaan.kabel._lijnen.ElementAt(i).sp.ID;
-                                        int score = game.waterskibaan.kabel._lijnen.ElementAt(i).sp.BehaaldePunten;
-                                        Brush tempBrush = new SolidColorBrush(Color.FromArgb(kleur.A, kleur.R, kleur.G, kleur.B));
-                                        Brush wit = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                            // Was een leuke oplossing geweest maar mag niet.
+                            if(!sporterGegevens.ContainsKey(id))
+                            {
+                                sporterGegevens.Add(id, score);
+                            } 
+                            else
+                            {
+                                foreach (KeyValuePair<int, int> sporterGegeven in sporterGegevens)
+                                {
+                                    if(sporterGegeven.Key == id)
+                                    {
+                                        int tempScore = sporterGegeven.Value;
+                                        score += tempScore;
+                                        sporterGegevens.Remove(sporterGegeven.Key);
                                         sporterGegevens.Add(id, score);
+                                    }
+                                }
+                            }
+                            
+                        }
+
+                        // Selecteert de top 5 scores uit sporterGegevens op een manier die heel erg lijkt op queries. Vast niet effectief, maar het enigste dat leek te werken.
+
+                        var top5SporterScores =                         // Maakt een IEnumerable<KeyValuePair<int, int> aan. De KeyValuePair is een ID + Score van de sporterGegevens.
+                            (from sporterScores                         // Een zogenaamde compound from
+                            in sporterGegevens                          // Waar de gegevens uit moeten komen
+                             orderby sporterScores.Value                // Sorteren op basis van de value (Dus niet de key)
+                             descending select sporterScores)           // We willen dat hij hem aflopend sorteert zodat ze hoogste waarde bovenaan komt (Het is immers een topscore)
+                            .ToDictionary                               // 
+                            (set => set.Key, set => set.Value)          // De Key en de Value refereren hierbij naar zichzelf. We willen immers niks toevoegen, enkel dat de volgorde verandert.
+                            .Take(5);                                   // Stopt enkel de hoogste 5 in de var
 
 
-                                        Positie0.Fill = colors.ElementAt(0) ?? wit;
-                                        IDSpeler0.Content = sporterGegevens.Count;
-                                        Positie1.Fill = colors.ElementAt(1) ?? wit;
-                                        IDSpeler1.Content = sporterGegevens.Keys.ElementAt(1).ToString();
-                                        Positie2.Fill = colors.ElementAt(2) ?? wit;
-                                        IDSpeler2.Content = sporterGegevens.Keys.ElementAt(2).ToString();
-                                        Positie3.Fill = colors.ElementAt(3) ?? wit;
-                                        IDSpeler3.Content = sporterGegevens.Keys.ElementAt(3);
-                                        Positie4.Fill = colors.ElementAt(4) ?? wit;
-                                        IDSpeler4.Content = sporterGegevens.Keys.ElementAt(4);
-                                        Positie5.Fill = colors.ElementAt(5) ?? wit;
-                                        IDSpeler5.Content = sporterGegevens.Keys.ElementAt(5);
-                                        Positie6.Fill = colors.ElementAt(6) ?? wit;
-                                        IDSpeler6.Content = sporterGegevens.Keys.ElementAt(6);
-                                        Positie7.Fill = colors.ElementAt(7) ?? wit;
-                                        IDSpeler7.Content = sporterGegevens.Keys.ElementAt(7);
-                                        Positie8.Fill = colors.ElementAt(8) ?? wit;
-                                        IDSpeler8.Content = sporterGegevens.Keys.ElementAt(8);
-                                        Positie9.Fill = colors.ElementAt(9) ?? wit;
-                                        IDSpeler9.Content = sporterGegevens.Keys.ElementAt(9);				
 
-                                        foreach (KeyValuePair<int, int> sporterGegeven in sporterGegevens.OrderBy(key => key.Value))
-                                        {
-                                            int gegevenScore = sporterGegeven.Value;
-                                            int gegevenID = sporterGegeven.Key;
+                        // Zeer lelijke code om de cirkels te blijven vullen. 
+                        int count = sporterGegevens.Count();
+                        int i = 0;
 
-                                            if (score0 < gegevenScore)
-                                            {
-                                                score0 = gegevenScore;
-                                                idscore0 = gegevenID;
-                                            }
-                                            else if (score1 < gegevenScore)
-                                            {
-                                                score1 = gegevenScore;
-                                                idscore1 = gegevenID;
-                                            }
-                                            else if (score2 < gegevenScore)
-                                            {
-                                                score2 = gegevenScore;
-                                                idscore2 = gegevenID;
-                                            }
-                                            else if (score3 < gegevenScore)
-                                            {
-                                                score3 = gegevenScore;
-                                                idscore3 = gegevenID;
-                                            }
-                                            else if (score4 < gegevenScore)
-                                            {
-                                                score4 = gegevenScore;
-                                                idscore4 = gegevenID;
-                                            }
-                                        }
+                        if (count > i)
+                        {
+                            Positie0.Fill = colors.ElementAt(i);
+                            IDSpeler0.Content = IDs.ElementAt(i);
+                            LeaderboardScore0.Content = top5SporterScores.ElementAt(i).Value;
+                            LeaderboardPlek0.Content = top5SporterScores.ElementAt(i).Key;
+                        }
 
-                                        LeaderboardScore0.Content = score0;
-                                        LeaderboardScore1.Content = score1;
-                                        LeaderboardScore2.Content = score2;
-                                        LeaderboardScore3.Content = score3;
-                                        LeaderboardScore4.Content = score4;
+                        i++;
 
-                                        LeaderboardPlek0.Content = idscore0;
-                                        LeaderboardPlek1.Content = idscore1;
-                                        LeaderboardPlek2.Content = idscore2;
-                                        LeaderboardPlek3.Content = idscore3;
-                                        LeaderboardPlek4.Content = idscore4;        */
+                        if (count > i)
+                        {
+                            Positie1.Fill = colors.ElementAt(i);
+                            IDSpeler1.Content = IDs.ElementAt(i);
+                            LeaderboardScore1.Content = top5SporterScores.ElementAt(i).Value;
+                            LeaderboardPlek1.Content = top5SporterScores.ElementAt(i).Key;
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie2.Fill = colors.ElementAt(i);
+                            IDSpeler2.Content = IDs.ElementAt(i);
+                            LeaderboardScore2.Content = top5SporterScores.ElementAt(i).Value;
+                            LeaderboardPlek2.Content = top5SporterScores.ElementAt(i).Key;
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie3.Fill = colors.ElementAt(i);
+                            IDSpeler3.Content = IDs.ElementAt(i);
+                            LeaderboardScore3.Content = top5SporterScores.ElementAt(i).Value;
+                            LeaderboardPlek3.Content = top5SporterScores.ElementAt(i).Key;
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie4.Fill = colors.ElementAt(i);
+                            IDSpeler4.Content = IDs.ElementAt(i);
+                            LeaderboardScore4.Content = top5SporterScores.ElementAt(i).Value;
+                            LeaderboardPlek4.Content = top5SporterScores.ElementAt(i).Key;
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie5.Fill = colors.ElementAt(i);
+                            IDSpeler5.Content = IDs.ElementAt(i);
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie6.Fill = colors.ElementAt(i);
+                            IDSpeler6.Content = IDs.ElementAt(i);
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie7.Fill = colors.ElementAt(i);
+                            IDSpeler7.Content = IDs.ElementAt(i);
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie8.Fill = colors.ElementAt(i);
+                            IDSpeler8.Content = IDs.ElementAt(i);
+                        }
+
+                        i++;
+
+                        if (count > i)
+                        {
+                            Positie9.Fill = colors.ElementAt(i);
+                            IDSpeler9.Content = IDs.ElementAt(i);
+                        }
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Test.Content = ex;
-            }
+                catch (Exception ex)
+                {
+                    Test.Content = ex;
+                    Console.WriteLine(ex);
+                }
 
-            Counter.Refresh();
-            Thread.Sleep(1000);
+                // Zorgt ervoor dat alles labels en cirkels gerefreshed worden zodat de waardes kloppen met hoe ze aangepast zijn.
+                Counter.Refresh();
+                Thread.Sleep(1000);
+            }
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)

@@ -38,7 +38,7 @@ namespace Waterskibaan
                 kabel.NeemLijnInGebruik(lijn, lijnenVoorraad);
             }
 
-            Random rand = new Random();
+            Random rand = new Random(DateTime.Now.Millisecond);
             int randomRondjes = rand.Next(1, 3);
             sp.AantalRondenNogTeGaan = randomRondjes;
 

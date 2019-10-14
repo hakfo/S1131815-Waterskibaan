@@ -9,16 +9,47 @@ namespace Waterskibaan
     public class InstructieGroep : Wachtrij
     {
 
+        public event InstructieAfgelopenHandler InstructieAfgelopen;
+
         public InstructieGroep()
         {
             MAX_LENGTE_RIJ = 5;
         }
 
-        public void InstructieAfgelopen(InstructieAfgelopenArgs args)
+        public void OnInstructieAfgelopen(InstructieAfgelopenArgs args)
         {
-            for (int i = 0; i < MAX_LENGTE_RIJ; i++)
+
+            int verschil = args.VolgendeWachtrij.MAX_LENGTE_RIJ - args.VolgendeWachtrij.GetAlleSporters().Count;
+            int aantal;
+
+            if (verschil > GetAlleSporters().Count)
             {
-                SporterNeemPlaatsInRij(args.sportersNaarInstructieGroep.First());
+                aantal = GetAlleSporters().Count;
+            } else
+            {
+                aantal = verschil;
+            }
+
+            List<Sporter> sportersNaarWachtrijStarten = SportersVerlatenRij(aantal);
+
+
+
+            InstructieAfgelopen.Invoke(new InstructieAfgelopenArgs() { sportersNaarVolgendeGroep = sportersNaarWachtrijStarten});
+
+            int rest = MAX_LENGTE_RIJ - GetAlleSporters().Count;
+
+            if (rest > args.VorigeWachtrij.GetAlleSporters().Count)
+            {
+                rest = args.VorigeWachtrij.GetAlleSporters().Count;
+            }
+
+            List<Sporter> sportersVanWachtrijInstructie = args.VorigeWachtrij.SportersVerlatenRij(rest);
+
+
+
+            foreach(Sporter sporter in sportersVanWachtrijInstructie)
+            {
+                SporterNeemPlaatsInRij(sporter);
             }
         }
 

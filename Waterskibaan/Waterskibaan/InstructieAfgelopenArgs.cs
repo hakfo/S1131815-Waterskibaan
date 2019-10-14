@@ -8,6 +8,8 @@ namespace Waterskibaan
 {
     public class InstructieAfgelopenArgs
     {
-        public List<Sporter> sportersNaarInstructieGroep { get; set; }
+        public List<Sporter> sportersNaarVolgendeGroep { get; set; }
+        public Wachtrij VolgendeWachtrij { get; set; }
+        public Wachtrij VorigeWachtrij { get; set; }
     }
 }
